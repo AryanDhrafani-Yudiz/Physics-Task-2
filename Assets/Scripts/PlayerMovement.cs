@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CameraMovement cmScript;
     [SerializeField] private UIManagerScript UIScript;
     [SerializeField] TextMeshProUGUI tmproGameObject;
-    private float gameOverYLimit = -4.5f;
+    private readonly float gameOverYLimit = -4.5f;
     private int coinsCounter = 0;
     private int instanceID;
 
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)); // Gets Screen Bounds From Camera ViewPort
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset), (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset), (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y                   - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
         if (transform.position.y < gameOverYLimit) // Display Game Over Screen When Player Below A Certain Height
         {
             UIScript.OnGameOverScreen();
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(UIScript.gamePlayScreen) // Gameplay Boolean Enable Then Only Take Input
         {
-            if (Input.mousePresent) // To Detect Whether Mouse Is Present Or Not
+            if (Input.mousePresent)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision) // On Colliding With Building's Top Checks If Camera Can Move
+    private void OnCollisionEnter2D(Collision2D collision) // On Colliding With Building's Top , Checks If Camera Can Move
     {
         if (collision.gameObject.CompareTag("BuildingTop"))
         {

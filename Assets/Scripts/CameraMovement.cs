@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float speedForCameraMovement;
     [SerializeField] private float xOffset;
 
-    public IEnumerator LerpFunction(float duration) 
+    public IEnumerator LerpFunction(float duration) // CoRoutine To Lerp Camera Over Multiple Frames In Given Duration
     {
         float time = 0;
         Vector3 startValue = transform.position;
