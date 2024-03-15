@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BuildingPooling : MonoBehaviour
 {
-    public static BuildingPooling Instance; // Singleton
+    public static BuildingPooling Instance;
 
     [SerializeField] private Transform prefab3Position;
     private float xOffset;

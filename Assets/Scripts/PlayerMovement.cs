@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CameraMovement cmScript;
     [SerializeField] private UIManagerScript UIScript;
     [SerializeField] TextMeshProUGUI tmproGameObject;
+    private float gameOverYLimit = -4.5f;
     private int coinsCounter = 0;
+    private int instanceID;
 
     private void Awake() 
     {
@@ -21,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)); // Gets Screen Bounds From Camera ViewPort
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset), (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
+        if (transform.position.y < gameOverYLimit) // Display Game Over Screen When Player Below A Certain Height
+        {
+            UIScript.OnGameOverScreen();
+        }
     }
     void Update()
     {
@@ -47,17 +53,17 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
-            if (transform.position.y < -4.5f) // Display Game Over Screen When Player Below A Certain Height
-            {
-                UIScript.OnGameOverScreen();
-            }
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) // On Colliding With Building's Top Checks If Camera Can Move
     {
         if (collision.gameObject.CompareTag("BuildingTop"))
         {
-            cmScript.canCameraMove(transform.position.x);
+            if (instanceID == 0 || instanceID != collision.gameObject.GetInstanceID())
+            {
+                instanceID = collision.gameObject.GetInstanceID();
+                StartCoroutine(cmScript.LerpFunction(1f));
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision) // Deactivate Coin Game Object On TriggerEnter And Increase The Coin Count

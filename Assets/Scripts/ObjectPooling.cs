@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjectPooling : MonoBehaviour
 {
-    public static ObjectPooling Instance; // Singleton
+    public static ObjectPooling Instance;
 
     [SerializeField] private int numberOfBuildingObject;
     [SerializeField] private GameObject buildingPrefab1;

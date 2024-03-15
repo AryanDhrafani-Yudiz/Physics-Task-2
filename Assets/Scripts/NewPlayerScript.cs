@@ -7,7 +7,15 @@ public class NewPlayerScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    rb.AddForce(joint2D.connectedBody.position);
+        //}
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            rb.AddForce(joint2D.connectedBody.position);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             rb.AddForce(joint2D.connectedBody.position);
         }
