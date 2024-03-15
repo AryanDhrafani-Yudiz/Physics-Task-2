@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NewPlayerScript : MonoBehaviour
@@ -11,7 +9,6 @@ public class NewPlayerScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            //rb.AddForceAtPosition()
             rb.AddForce(joint2D.connectedBody.position);
         }
     }

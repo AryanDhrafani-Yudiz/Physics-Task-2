@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -5,9 +6,35 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float speedForCameraMovement;
     [SerializeField] private float xOffset;
+    private float lastxPosition;
 
-    public void MoveCamera() // Smoothly Lerps The Camera When Called
+    public void canCameraMove(float currxPosition)
     {
-        transform.position = Vector3.Lerp(transform.position , new Vector3(playerTransform.position.x + xOffset, transform.position.y, -10f), speedForCameraMovement * Time.deltaTime);
+        if (lastxPosition == 0f)
+        {
+            lastxPosition = currxPosition;
+        }
+        else
+        {
+            if (Mathf.Abs(lastxPosition - currxPosition) > 2.5f)
+            {
+                StartCoroutine(LerpFunction(1f));
+                lastxPosition = currxPosition;
+            }
+        }
+    }
+    private IEnumerator LerpFunction(float duration) 
+    {
+        float time = 0;
+        Vector3 startValue = transform.position;
+        Vector3 endValue = new Vector3(playerTransform.position.x + xOffset, transform.position.y, -10f);
+        Debug.Log("Coroutine Started");
+        while (time < duration)
+        {
+            transform.position = Vector3.Lerp(startValue, endValue,speedForCameraMovement * (time / duration));
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = endValue;
     }
 }

@@ -21,14 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)); // Gets Screen Bounds From Camera ViewPort
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset), (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
-        if (playerRigidBody.velocity == Vector2.zero) // Canera Moves When Player isnt Moving
-        {
-            cmScript.MoveCamera();
-        }
-        if (transform.position.y < -4.5f) // Display Game Over Screen When Player Below A Certain Height
-        {
-            UIScript.OnGameOverScreen();
-        }
     }
     void Update()
     {
@@ -55,6 +47,17 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
+            if (transform.position.y < -4.5f) // Display Game Over Screen When Player Below A Certain Height
+            {
+                UIScript.OnGameOverScreen();
+            }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision) // On Colliding With Building's Top Checks If Camera Can Move
+    {
+        if (collision.gameObject.CompareTag("BuildingTop"))
+        {
+            cmScript.canCameraMove(transform.position.x);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision) // Deactivate Coin Game Object On TriggerEnter And Increase The Coin Count
