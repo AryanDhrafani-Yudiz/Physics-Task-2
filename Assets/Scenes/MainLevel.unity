@@ -2038,10 +2038,8 @@ GameObject:
   - component: {fileID: 930954709}
   - component: {fileID: 930954708}
   - component: {fileID: 930954707}
-  - component: {fileID: 930954716}
-  - component: {fileID: 930954712}
   - component: {fileID: 930954717}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2142,47 +2140,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!231 &930954712
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930954705}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 931090610}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 4
-  m_DampingRatio: 0.5
-  m_Frequency: 1
---- !u!232 &930954716
-DistanceJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930954705}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 931090610}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 5
-  m_MaxDistanceOnly: 0
 --- !u!58 &930954717
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2231,6 +2188,7 @@ GameObject:
   - component: {fileID: 931090610}
   - component: {fileID: 931090614}
   - component: {fileID: 931090615}
+  - component: {fileID: 931090617}
   m_Layer: 0
   m_Name: Spiderman
   m_TagString: Untagged
@@ -2264,7 +2222,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &931090611
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2390,9 +2348,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 931090610}
-  currentJoint2D: {fileID: 930954716}
-  distanceChange: 0.1
-  forceDirection: {x: 5, y: 5}
+  rbOfBlock: {fileID: 930954707}
+  currentSpringJoint2D: {fileID: 931090617}
+  distanceChange: 0.05
+  forceDirection: {x: 3, y: 3}
+--- !u!231 &931090617
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931090608}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 930954707}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 4.629168
+  m_DampingRatio: 0.7
+  m_Frequency: 1
 --- !u!1 &955443113
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,57 +2665,14 @@ GameObject:
   - component: {fileID: 1124099414}
   - component: {fileID: 1124099413}
   - component: {fileID: 1124099412}
-  - component: {fileID: 1124099411}
-  - component: {fileID: 1124099410}
   - component: {fileID: 1124099415}
-  m_Layer: 0
-  m_Name: Triangle (1)
+  m_Layer: 3
+  m_Name: Triangle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!231 &1124099410
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124099409}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 931090610}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 4
-  m_DampingRatio: 0.5
-  m_Frequency: 1
---- !u!232 &1124099411
-DistanceJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124099409}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 5
-  m_MaxDistanceOnly: 0
 --- !u!50 &1124099412
 Rigidbody2D:
   serializedVersion: 4
