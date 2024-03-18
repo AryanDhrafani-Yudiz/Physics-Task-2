@@ -7,7 +7,6 @@ public class BuildingPooling : MonoBehaviour
     [SerializeField] private Transform prefab3Position;
     private float xOffset;
     private float currPosition;
-    private int count = 0;
 
     private void Awake()
     {
@@ -18,12 +17,11 @@ public class BuildingPooling : MonoBehaviour
         currPosition = prefab3Position.position.x;
         SpawnStartingBuilding();
         SpawnBuilding(FindNextPosition());
-        SpawnBuilding(FindNextPosition());
-        SpawnBuilding(FindNextPosition());
+
     }
-    public void SpawnStartingBuilding() // Spawns Starting 3 Buildings
+    public void SpawnStartingBuilding() // Spawns Starting 5 Buildings
     {
-        while(count<3)
+        for (int count = 0; count < 3; count++)
         {
             GameObject Building = ObjectPooling.Instance.BuildingObjectToPoolStarting();
 
@@ -31,8 +29,9 @@ public class BuildingPooling : MonoBehaviour
             {
                 Building.SetActive(true);
             }
-            count++;
         }
+        SpawnBuilding(FindNextPosition());
+        SpawnBuilding(FindNextPosition());
     }
 
     public void SpawnBuilding(float position1) // Spawn Building At Relative Position To RightMost Building Present
@@ -41,11 +40,11 @@ public class BuildingPooling : MonoBehaviour
 
         if (Building != null)
         {
-            Building.transform.position = new Vector3(position1 , Building.transform.position.y , Building.transform.position.z);
+            Building.transform.position = new Vector3(position1, Building.transform.position.y, Building.transform.position.z);
             Building.SetActive(true);
-            if (Random.Range(0,2) == 1)
+            if (Random.Range(0, 2) == 1)
             {
-            SpawnCoin(Building.transform.position);
+                SpawnCoin(Building.transform.position);
             }
         }
     }
@@ -61,7 +60,7 @@ public class BuildingPooling : MonoBehaviour
 
         if (Coin != null)
         {
-            Coin.transform.position = new Vector3(position.x , position.y + 3f , position.z);
+            Coin.transform.position = new Vector3(position.x, position.y + 3f, position.z);
             Coin.SetActive(true);
         }
     }

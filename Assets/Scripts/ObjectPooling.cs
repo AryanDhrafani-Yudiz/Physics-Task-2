@@ -6,16 +6,14 @@ public class ObjectPooling : MonoBehaviour
     public static ObjectPooling Instance;
 
     [SerializeField] private int numberOfBuildingObject;
-    [SerializeField] private GameObject buildingPrefab1;
-    [SerializeField] private GameObject buildingPrefab2;
-    [SerializeField] private GameObject buildingPrefab3;
+    [SerializeField] private List<GameObject> buildingPrefabsList;
     [SerializeField] private Transform buildingParentObject;
     [SerializeField] private int numberOfCoinObject;
-    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private List<GameObject> coinPrefabsList;
     [SerializeField] private Transform coinParentObject;
 
     private int getRandomItem = 0;
-    
+
     public List<GameObject> ListOfBuildingObjects;
     public List<GameObject> ListOfCoinObjects;
 
@@ -28,48 +26,52 @@ public class ObjectPooling : MonoBehaviour
 
     public void CreateBuildingObjects() // Instantiating And Deactivating Building Objects and Adding Them To Building's List
     {
-        ListOfBuildingObjects = new();
+        //ListOfBuildingObjects = new();
         GameObject temp;
 
-        for (int i = 0; i < numberOfBuildingObject; i++)
+        for (int count = 0; count < numberOfBuildingObject;)
         {
-            temp = Instantiate(buildingPrefab1, buildingParentObject , true);
-            temp.SetActive(false);
-            ListOfBuildingObjects.Add(temp);
-
-            temp = Instantiate(buildingPrefab2, buildingParentObject, true);
-            temp.SetActive(false);
-            ListOfBuildingObjects.Add(temp);
-
-            temp = Instantiate(buildingPrefab3, buildingParentObject, true);
-            temp.SetActive(false);
-            ListOfBuildingObjects.Add(temp);
+            foreach (GameObject prefab in buildingPrefabsList)
+            {
+                temp = Instantiate(prefab, buildingParentObject, true);
+                temp.SetActive(false);
+                ListOfBuildingObjects.Add(temp);
+                count++;
+                if (count == numberOfBuildingObject) break;
+            }
         }
     }
     public void CreateCoinObjects() // Instantiating And Deactivating Coin Objects and Adding Them To Coin's List
     {
-        ListOfCoinObjects = new();
+        //ListOfCoinObjects = new();
         GameObject temp;
 
-        for (int i = 0; i < numberOfCoinObject; i++)
+        for (int count = 0; count < numberOfCoinObject;)
         {
-            temp = Instantiate(coinPrefab, coinParentObject, true);
-            temp.SetActive(false);
-            ListOfCoinObjects.Add(temp);
+            foreach (GameObject prefab in coinPrefabsList)
+            {
+                temp = Instantiate(prefab, coinParentObject, true);
+                temp.SetActive(false);
+                ListOfCoinObjects.Add(temp);
+                count++;
+                if (count == numberOfCoinObject) break;
+            }
         }
     }
     public GameObject BuildingObjectToPool() // Selects A Random Building Object Which Isnt Active From Heirarchy
     {
+        List<GameObject> inactiveBuildingsList = new();
+
         for (int i = 0; i < ListOfBuildingObjects.Count; i++)
         {
-            getRandomItem = Random.Range(0, ListOfBuildingObjects.Count);
-
-            if (!ListOfBuildingObjects[getRandomItem].activeInHierarchy)
+            if (!ListOfBuildingObjects[i].activeInHierarchy)
             {
-                return ListOfBuildingObjects[getRandomItem];
+                inactiveBuildingsList.Add(ListOfBuildingObjects[i]);
             }
         }
-        return null;
+        getRandomItem = Random.Range(0, inactiveBuildingsList.Count);
+        return inactiveBuildingsList[getRandomItem];
+
     }
     public GameObject BuildingObjectToPoolStarting() // Selects Starting 3 Buildings To Spawn
     {
@@ -84,13 +86,16 @@ public class ObjectPooling : MonoBehaviour
     }
     public GameObject CoinsObjectToPool() // Selects Inactive Coin Game Objects To Spawn
     {
+        List<GameObject> inactiveCoinsList = new();
+
         for (int i = 0; i < ListOfCoinObjects.Count; i++)
         {
             if (!ListOfCoinObjects[i].activeInHierarchy)
             {
-                return ListOfCoinObjects[i];
+                inactiveCoinsList.Add(ListOfCoinObjects[i]);
             }
         }
-        return null;
+        getRandomItem = Random.Range(0, inactiveCoinsList.Count);
+        return inactiveCoinsList[getRandomItem];
     }
 }
