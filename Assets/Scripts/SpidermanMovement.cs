@@ -3,7 +3,7 @@ using UnityEngine;
 public class SpidermanMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Rigidbody2D rbOfBlock;
+    [SerializeField] private Rigidbody2D rbOfGrapplingPlatform;
     [SerializeField] private SpringJoint2D currentSpringJoint2D;
     [SerializeField] private float distanceChange;
     [SerializeField] private Vector2 forceDirection;
@@ -49,8 +49,8 @@ public class SpidermanMovement : MonoBehaviour
             if (hit.collider != null)
             {
                 currentSpringJoint2D.enabled = true;
-                rbOfBlock = hit.collider.gameObject.GetComponent<Rigidbody2D>();
-                currentSpringJoint2D.connectedBody = rbOfBlock;
+                rbOfGrapplingPlatform = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                currentSpringJoint2D.connectedBody = rbOfGrapplingPlatform;
             }
         }
     }

@@ -7,9 +7,13 @@ public class BuildingCoinActivatorDeactivator : MonoBehaviour
         if (gameObject.CompareTag("Building"))
         {
             gameObject.SetActive(false);
-            BuildingPooling.Instance.SpawnBuilding(BuildingPooling.Instance.FindNextPosition());
+            BuildingPooling.Instance.SpawnBuilding(BuildingPooling.Instance.FindNextPosition("Building"));
         }
         if (gameObject.CompareTag("Coin"))
+        {
+            gameObject.SetActive(false);
+        }
+        if (gameObject.CompareTag("GrapplePlatform"))
         {
             gameObject.SetActive(false);
         }
