@@ -626,10 +626,10 @@ SpringJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162062337}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
+  m_ConnectedRigidBody: {fileID: 541218299}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
@@ -637,7 +637,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 6.463153
+  m_Distance: 5.7293267
   m_DampingRatio: 0.7
   m_Frequency: 1
 --- !u!114 &162062344
@@ -647,7 +647,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162062337}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e801885d939584cf89a689c178f8a159, type: 3}
   m_Name: 
@@ -732,6 +732,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169359791}
   m_CullTransparentMesh: 1
+--- !u!1001 &197633832
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256421333652027683, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196472664203702399, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+      propertyPath: m_Name
+      value: TriangleToHook
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
 --- !u!1 &309460988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1366,11 @@ MonoBehaviour:
   playerTransform: {fileID: 162062340}
   speedForCameraMovement: 5
   xOffset: 7
+--- !u!50 &541218299 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6103143311064680213, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
+  m_PrefabInstance: {fileID: 197633832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &662012729
 GameObject:
   m_ObjectHideFlags: 0
@@ -5093,3 +5155,4 @@ SceneRoots:
   - {fileID: 1849358710}
   - {fileID: 1337609450}
   - {fileID: 931090612}
+  - {fileID: 197633832}

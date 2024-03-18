@@ -8,14 +8,15 @@ public class ObjectPooling : MonoBehaviour
     [SerializeField] private int numberOfBuildingObject;
     [SerializeField] private List<GameObject> buildingPrefabsList;
     [SerializeField] private Transform buildingParentObject;
+
     [SerializeField] private int numberOfCoinObject;
     [SerializeField] private List<GameObject> coinPrefabsList;
     [SerializeField] private Transform coinParentObject;
 
     private int getRandomItem = 0;
 
-    public List<GameObject> ListOfBuildingObjects;
-    public List<GameObject> ListOfCoinObjects;
+    public List<GameObject> ListOfAllBuildingObjects;
+    public List<GameObject> ListOfAllCoinObjects;
 
     private void Awake()
     {
@@ -23,10 +24,8 @@ public class ObjectPooling : MonoBehaviour
         CreateBuildingObjects();
         CreateCoinObjects();
     }
-
     public void CreateBuildingObjects() // Instantiating And Deactivating Building Objects and Adding Them To Building's List
     {
-        //ListOfBuildingObjects = new();
         GameObject temp;
 
         for (int count = 0; count < numberOfBuildingObject;)
@@ -35,7 +34,7 @@ public class ObjectPooling : MonoBehaviour
             {
                 temp = Instantiate(prefab, buildingParentObject, true);
                 temp.SetActive(false);
-                ListOfBuildingObjects.Add(temp);
+                ListOfAllBuildingObjects.Add(temp);
                 count++;
                 if (count == numberOfBuildingObject) break;
             }
@@ -43,7 +42,6 @@ public class ObjectPooling : MonoBehaviour
     }
     public void CreateCoinObjects() // Instantiating And Deactivating Coin Objects and Adding Them To Coin's List
     {
-        //ListOfCoinObjects = new();
         GameObject temp;
 
         for (int count = 0; count < numberOfCoinObject;)
@@ -52,7 +50,7 @@ public class ObjectPooling : MonoBehaviour
             {
                 temp = Instantiate(prefab, coinParentObject, true);
                 temp.SetActive(false);
-                ListOfCoinObjects.Add(temp);
+                ListOfAllCoinObjects.Add(temp);
                 count++;
                 if (count == numberOfCoinObject) break;
             }
@@ -62,11 +60,11 @@ public class ObjectPooling : MonoBehaviour
     {
         List<GameObject> inactiveBuildingsList = new();
 
-        for (int i = 0; i < ListOfBuildingObjects.Count; i++)
+        for (int i = 0; i < ListOfAllBuildingObjects.Count; i++)
         {
-            if (!ListOfBuildingObjects[i].activeInHierarchy)
+            if (!ListOfAllBuildingObjects[i].activeInHierarchy)
             {
-                inactiveBuildingsList.Add(ListOfBuildingObjects[i]);
+                inactiveBuildingsList.Add(ListOfAllBuildingObjects[i]);
             }
         }
         getRandomItem = Random.Range(0, inactiveBuildingsList.Count);
@@ -77,9 +75,9 @@ public class ObjectPooling : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (!ListOfBuildingObjects[i].activeInHierarchy)
+            if (!ListOfAllBuildingObjects[i].activeInHierarchy)
             {
-                return ListOfBuildingObjects[i];
+                return ListOfAllBuildingObjects[i];
             }
         }
         return null;
@@ -88,11 +86,11 @@ public class ObjectPooling : MonoBehaviour
     {
         List<GameObject> inactiveCoinsList = new();
 
-        for (int i = 0; i < ListOfCoinObjects.Count; i++)
+        for (int i = 0; i < ListOfAllCoinObjects.Count; i++)
         {
-            if (!ListOfCoinObjects[i].activeInHierarchy)
+            if (!ListOfAllCoinObjects[i].activeInHierarchy)
             {
-                inactiveCoinsList.Add(ListOfCoinObjects[i]);
+                inactiveCoinsList.Add(ListOfAllCoinObjects[i]);
             }
         }
         getRandomItem = Random.Range(0, inactiveCoinsList.Count);

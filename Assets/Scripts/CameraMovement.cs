@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 endValue = new Vector3(playerTransform.position.x + xOffset, transform.position.y, -10f);
         while (time < duration)
         {
-            transform.position = Vector3.Lerp(startValue, endValue,speedForCameraMovement * (time / duration));
+            transform.position = Vector3.Lerp(startValue, endValue, speedForCameraMovement * (time / duration));
             time += Time.deltaTime;
             yield return null;
         }
