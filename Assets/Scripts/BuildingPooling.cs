@@ -20,7 +20,6 @@ public class BuildingPooling : MonoBehaviour
         currGrapplePlatformPosition = grapplePrefabPosition.position.x;
         SpawnStartingBuilding();
         SpawnBuilding(FindNextPosition("Building"));
-        SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
     }
     public void SpawnStartingBuilding() // Spawns Starting 5 Buildings
     {

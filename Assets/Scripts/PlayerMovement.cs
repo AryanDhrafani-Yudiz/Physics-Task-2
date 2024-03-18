@@ -4,25 +4,32 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D playerRigidBody;
-    [SerializeField] private Vector2 forceToApply;
     private Vector2 screenBounds;
     [SerializeField] private float screenBoundsOffset;
     [SerializeField] private CameraMovement cmScript;
     [SerializeField] private UIManagerScript UIScript;
     [SerializeField] TextMeshProUGUI tmproGameObject;
+
     private readonly float gameOverYLimit = -4.5f;
     private int coinsCounter = 0;
     private int instanceID;
 
-    private void Awake() 
+    private Rigidbody2D playerRigidBody;
+    private SpringJoint2D playerSpringJoint2D;
+    [SerializeField] private Rigidbody2D rbOfGrapplePlatform;
+    [SerializeField] private float distanceChange;
+    [SerializeField] Vector2 velocityChange;
+
+    private void Awake()
     {
         Application.targetFrameRate = 120;
+        playerRigidBody = GetComponent<Rigidbody2D>();
+        playerSpringJoint2D = GetComponent<SpringJoint2D>();
     }
     private void FixedUpdate()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)); // Gets Screen Bounds From Camera ViewPort
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset), (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y                   - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset) / 2, (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
         if (transform.position.y < gameOverYLimit) // Display Game Over Screen When Player Below A Certain Height
         {
             UIScript.OnGameOverScreen();
@@ -30,28 +37,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        if(UIScript.gamePlayScreen) // Gameplay Boolean Enable Then Only Take Input
+        if (UIScript.gamePlayScreen) // Gameplay Boolean Enable Then Only Take Input
         {
-            if (Input.mousePresent)
+            if (!EventSystem.current.IsPointerOverGameObject()) // Checks Whether Input Not Being Taken On An UI Element
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    if (!EventSystem.current.IsPointerOverGameObject()) // Checks Whether Input Not Being Taken On An UI Element
-                    {
-                        PlayerJump();
-                    }
-                }
-            }
-            else if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                if (!EventSystem.current.IsPointerOverGameObject(0)) // Checks Whether Input Not Being Taken On An UI Element
-                {
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        PlayerJump();
-                    }
-                }
+                SpidermanMovement();
             }
         }
     }
@@ -72,8 +62,42 @@ public class PlayerMovement : MonoBehaviour
         coinsCounter += 10;
         tmproGameObject.text = coinsCounter.ToString();
     }
-    private void PlayerJump() // Adds Force To Player To Demonstrate Jumping Like Movement
+    private void SpidermanMovement() // Adds Force To Player To Demonstrate Jumping Like Movement
     {
-        playerRigidBody.AddForce(forceToApply, ForceMode2D.Impulse);
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            playerSpringJoint2D.distance += distanceChange;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            if (playerSpringJoint2D.distance > 1.5f)
+            {
+                playerSpringJoint2D.distance -= distanceChange;
+            }
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            playerRigidBody.velocity -= velocityChange;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            playerRigidBody.velocity += velocityChange;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerSpringJoint2D.connectedBody = null;
+            playerSpringJoint2D.enabled = false;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, 1 << 3);
+
+            if (hit.collider != null)
+            {
+                playerSpringJoint2D.enabled = true;
+                rbOfGrapplePlatform = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                playerSpringJoint2D.connectedBody = rbOfGrapplePlatform;
+            }
+        }
     }
 }
