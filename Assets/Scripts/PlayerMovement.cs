@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             soundManagerScript.onPowerUp();
             coinsCounter -= 50;
+
         }
         tmproGameObject.text = coinsCounter.ToString();
         soundManagerScript.onCoinsCollect();

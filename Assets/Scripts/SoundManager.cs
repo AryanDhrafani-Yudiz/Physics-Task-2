@@ -9,11 +9,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip spidermanMeme;
     [SerializeField] private AudioSource bgAudioSource;
     private AudioSource eventAudioSource;
+    private float audioLength;
+    private bool isPowerUp = false;
 
     private void Start()
     {
         eventAudioSource = Camera.main.GetComponent<AudioSource>();
         bgAudioSource.enabled = true;
+        audioLength = spidermanMeme.length;
     }
     public void onCoinsCollect()
     {
@@ -27,10 +30,32 @@ public class SoundManager : MonoBehaviour
     {
         bgAudioSource.Pause();
         eventAudioSource.PlayOneShot(spidermanMeme);
+        isPowerUp = true;
+    }
+    public void onPowerDefault()
+    {
+        bgAudioSource.UnPause();
+        isPowerUp = false;
     }
     public void onGameOver()
     {
         eventAudioSource.PlayOneShot(gameOver);
         bgAudioSource.enabled = false;
+    }
+    private void Update()
+    {
+        Debug.Log(audioLength);
+        if (isPowerUp)
+        {
+            if (audioLength > 0)
+            {
+                audioLength -= Time.deltaTime;
+            }
+            else
+            {
+                onPowerDefault();
+                audioLength = spidermanMeme.length;
+            }
+        }
     }
 }

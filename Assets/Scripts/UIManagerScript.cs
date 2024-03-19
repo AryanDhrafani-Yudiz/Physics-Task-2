@@ -45,6 +45,7 @@ public class UIManagerScript : MonoBehaviour
         GamePlayCanvas.enabled = false;
         SettingsCanvas.enabled = false;
         GameOverCanvas.enabled = true;
+        Time.timeScale = 0;
     }
     public void OnRestartBtnClick() // When Restart Button Is Clicked , Scene Is Reloaded
     {
