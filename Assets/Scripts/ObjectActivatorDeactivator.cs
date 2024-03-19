@@ -9,6 +9,11 @@ public class ObjectActivatorDeactivator : MonoBehaviour
             gameObject.SetActive(false);
             BuildingPooling.Instance.SpawnBuilding(BuildingPooling.Instance.FindNextPosition("Building"));
         }
+        else if (gameObject.CompareTag("GrapplePlatform"))
+        {
+            gameObject.SetActive(false);
+            BuildingPooling.Instance.SpawnGrapplePlatform(BuildingPooling.Instance.FindNextPosition("GrapplingPlatform"));
+        }
         else gameObject.SetActive(false);
     }
 }

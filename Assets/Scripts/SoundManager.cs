@@ -15,14 +15,10 @@ public class SoundManager : MonoBehaviour
     }
     public void onCoinsCollect()
     {
-        //source.clip = coinCollect;
-        //source.Play();
         eventAudioSource.PlayOneShot(coinCollect);
     }
     public void onGameOver()
     {
-        //source.clip = gameOver;
-        //source.Play();
         eventAudioSource.PlayOneShot(gameOver);
         bgAudioSource.enabled = false;
     }

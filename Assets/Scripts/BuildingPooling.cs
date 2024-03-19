@@ -20,6 +20,7 @@ public class BuildingPooling : MonoBehaviour
         currGrapplePlatformPosition = grapplePrefabPosition.position.x;
         SpawnStartingBuilding();
         SpawnBuilding(FindNextPosition("Building"));
+        SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
     }
     public void SpawnStartingBuilding() // Spawns Starting 5 Buildings
     {
@@ -34,6 +35,8 @@ public class BuildingPooling : MonoBehaviour
         }
         SpawnBuilding(FindNextPosition("Building"));
         SpawnBuilding(FindNextPosition("Building"));
+        SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
+        SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
     }
 
     public void SpawnBuilding(float position) // Spawn Building At Relative Position To RightMost Building Present
@@ -48,7 +51,6 @@ public class BuildingPooling : MonoBehaviour
             {
                 SpawnCoin(Building.transform.position);
             }
-            SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
         }
     }
     public float FindNextPosition(string positionForObject) // Finds Position To Spawn Next Building At , After The Rightmost Building
