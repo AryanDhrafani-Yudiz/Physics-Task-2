@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float screenBoundsOffset;
     [SerializeField] private CameraMovement cmScript;
     [SerializeField] private UIManagerScript UIScript;
+    [SerializeField] private SoundManager soundManagerScript;
     [SerializeField] TextMeshProUGUI tmproGameObject;
 
     private readonly float gameOverYLimit = -4.5f;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Vector2 velocityChange;
     private bool canMove = false;
     private LineRenderer lineRenderer;
+    private bool singleTime = true;
 
     private void Awake()
     {
@@ -37,7 +39,12 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, screenLowerBounds.x + screenBoundsOffset, (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
         if (transform.position.y < gameOverYLimit) // Display Game Over Screen When Player Below A Certain Height
         {
-            UIScript.OnGameOverScreen();
+            if (singleTime)
+            {
+                UIScript.OnGameOverScreen();
+                soundManagerScript.onGameOver();
+                singleTime = false;
+            }
         }
     }
     void Update()
@@ -66,10 +73,11 @@ public class PlayerMovement : MonoBehaviour
         collision.gameObject.SetActive(false);
         coinsCounter += 10;
         tmproGameObject.text = coinsCounter.ToString();
+        soundManagerScript.onCoinsCollect();
     }
     private void SpidermanMovement() // Adds Force To Player To Demonstrate Jumping Like Movement
     {
-        if (canMove)
+        if (canMove) // Attached To Grappling Platform
         {
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
@@ -92,27 +100,35 @@ public class PlayerMovement : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                playerSpringJoint2D.connectedBody = null;
-                playerSpringJoint2D.enabled = false;
-                canMove = false;
-                lineRenderer.enabled = false;
+                leaveGrapple();
             }
         }
-        else
+        else // Not Attached To Any Grappling Platform
         {
             if (Input.GetMouseButtonDown(0))
             {
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, 1 << 3);
-
-                if (hit.collider != null)
-                {
-                    playerSpringJoint2D.enabled = true;
-                    rbOfGrapplePlatform = hit.collider.gameObject.GetComponent<Rigidbody2D>();
-                    playerSpringJoint2D.connectedBody = rbOfGrapplePlatform;
-                    canMove = true;
-                    lineRenderer.enabled = true;
-                }
+                joinGrapple();
             }
+        }
+    }
+    private void leaveGrapple()
+    {
+        playerSpringJoint2D.connectedBody = null;
+        playerSpringJoint2D.enabled = false;
+        canMove = false;
+        lineRenderer.enabled = false;
+    }
+    private void joinGrapple()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, 1 << 3);
+
+        if (hit.collider != null)
+        {
+            playerSpringJoint2D.enabled = true;
+            rbOfGrapplePlatform = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+            playerSpringJoint2D.connectedBody = rbOfGrapplePlatform;
+            canMove = true;
+            lineRenderer.enabled = true;
         }
     }
 }

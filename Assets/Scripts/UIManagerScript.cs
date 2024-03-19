@@ -7,9 +7,10 @@ public class UIManagerScript : MonoBehaviour
     [SerializeField] private Canvas GamePlayCanvas;
     [SerializeField] private Canvas SettingsCanvas;
     [SerializeField] private Canvas GameOverCanvas;
+    [SerializeField] private SoundManager soundManagerScript;
     public bool gamePlayScreen = false;
 
-    void Start()
+    void Awake()
     {
         StartingScreenCanvas.enabled = true;
         GamePlayCanvas.enabled = false;
