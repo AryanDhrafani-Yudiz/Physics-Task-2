@@ -44,7 +44,6 @@ public class SoundManager : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(audioLength);
         if (isPowerUp)
         {
             if (audioLength > 0)
