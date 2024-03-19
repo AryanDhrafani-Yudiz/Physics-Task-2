@@ -126,9 +126,12 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i < ListOfAllGrappleObjects.Count; i++)
         {
-            if (!ListOfAllGrappleObjects[i].activeInHierarchy)
+            if (ListOfAllGrappleObjects[i] != null)
             {
-                inactiveGrappleList.Add(ListOfAllGrappleObjects[i]);
+                if (!ListOfAllGrappleObjects[i].activeInHierarchy)
+                {
+                    inactiveGrappleList.Add(ListOfAllGrappleObjects[i]);
+                }
             }
         }
         getRandomItem = Random.Range(0, inactiveGrappleList.Count);

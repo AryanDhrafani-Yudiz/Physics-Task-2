@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 screenBounds;
+    private Vector2 screenLowerBounds;
     [SerializeField] private float screenBoundsOffset;
     [SerializeField] private CameraMovement cmScript;
     [SerializeField] private UIManagerScript UIScript;
@@ -19,18 +20,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rbOfGrapplePlatform;
     [SerializeField] private float distanceChange;
     [SerializeField] Vector2 velocityChange;
-    private bool canMove = true;
+    private bool canMove = false;
+    private LineRenderer lineRenderer;
 
     private void Awake()
     {
         Application.targetFrameRate = 120;
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerSpringJoint2D = GetComponent<SpringJoint2D>();
+        lineRenderer = GetComponent<LineRenderer>();
     }
     private void FixedUpdate()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)); // Gets Screen Bounds From Camera ViewPort
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -(screenBounds.x - screenBoundsOffset) / 2, (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
+        screenLowerBounds = Camera.main.ScreenToWorldPoint(Vector2.zero); // Gets Screen Bounds From Camera ViewPort
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, screenLowerBounds.x + screenBoundsOffset, (screenBounds.x - screenBoundsOffset)), Mathf.Clamp(transform.position.y, -6f, (screenBounds.y - screenBoundsOffset)), transform.position.z); // Limits The Position Of Player's X and Y Between Screen Bounds.
         if (transform.position.y < gameOverYLimit) // Display Game Over Screen When Player Below A Certain Height
         {
             UIScript.OnGameOverScreen();
@@ -67,22 +71,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
                 playerSpringJoint2D.distance += distanceChange;
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 if (playerSpringJoint2D.distance > 1.5f)
                 {
                     playerSpringJoint2D.distance -= distanceChange;
                 }
             }
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 playerRigidBody.velocity -= velocityChange;
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
                 playerRigidBody.velocity += velocityChange;
             }
@@ -91,9 +95,10 @@ public class PlayerMovement : MonoBehaviour
                 playerSpringJoint2D.connectedBody = null;
                 playerSpringJoint2D.enabled = false;
                 canMove = false;
+                lineRenderer.enabled = false;
             }
         }
-        if (canMove == false)
+        else
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -105,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
                     rbOfGrapplePlatform = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     playerSpringJoint2D.connectedBody = rbOfGrapplePlatform;
                     canMove = true;
+                    lineRenderer.enabled = true;
                 }
             }
         }
