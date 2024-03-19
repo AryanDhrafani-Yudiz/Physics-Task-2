@@ -79,7 +79,17 @@ public class ObjectPooling : MonoBehaviour
             }
         }
     }
-
+    public GameObject BuildingObjectToPoolStarting() // Selects Starting 3 Buildings To Spawn
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (!ListOfAllBuildingObjects[i].activeInHierarchy)
+            {
+                return ListOfAllBuildingObjects[i];
+            }
+        }
+        return null;
+    }
     public GameObject BuildingObjectToPool() // Selects A Random Building Object Which Isnt Active From Heirarchy
     {
         List<GameObject> inactiveBuildingsList = new();
@@ -94,17 +104,6 @@ public class ObjectPooling : MonoBehaviour
         getRandomItem = Random.Range(0, inactiveBuildingsList.Count);
         return inactiveBuildingsList[getRandomItem];
 
-    }
-    public GameObject BuildingObjectToPoolStarting() // Selects Starting 3 Buildings To Spawn
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (!ListOfAllBuildingObjects[i].activeInHierarchy)
-            {
-                return ListOfAllBuildingObjects[i];
-            }
-        }
-        return null;
     }
     public GameObject CoinsObjectToPool() // Selects Inactive Coin Game Objects To Spawn
     {
@@ -126,12 +125,9 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i < ListOfAllGrappleObjects.Count; i++)
         {
-            if (ListOfAllGrappleObjects[i] != null)
+            if (!ListOfAllGrappleObjects[i].activeInHierarchy)
             {
-                if (!ListOfAllGrappleObjects[i].activeInHierarchy)
-                {
-                    inactiveGrappleList.Add(ListOfAllGrappleObjects[i]);
-                }
+                inactiveGrappleList.Add(ListOfAllGrappleObjects[i]);
             }
         }
         getRandomItem = Random.Range(0, inactiveGrappleList.Count);

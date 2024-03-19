@@ -707,8 +707,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.535713
+        time: 0.07165286
+        value: 0.5357151
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -720,7 +720,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0, b: 0, a: 1}
+      key0: {r: 0, g: 1, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 1, g: 1, b: 1, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -1349,6 +1349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinCollect: {fileID: 8300000, guid: fabb8669a5f784bdfa955d26c89b75e3, type: 3}
   gameOver: {fileID: 8300000, guid: a411e2cfa95b741dca47e3ff3ab45d3c, type: 3}
+  webShoot: {fileID: 8300000, guid: b7a962edb08a949c4aa3dd189b9bf4c0, type: 3}
   spidermanTheme: {fileID: 8300000, guid: 83b2293732c364a0a909ef6684cfb15f, type: 3}
   bgAudioSource: {fileID: 519420035}
 --- !u!1 &519420028

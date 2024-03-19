@@ -108,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 joinGrapple();
+                soundManagerScript.onWebShoot();
             }
         }
     }

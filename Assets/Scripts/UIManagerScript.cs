@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,8 +48,7 @@ public class UIManagerScript : MonoBehaviour
     }
     public void OnRestartBtnClick() // When Restart Button Is Clicked , Scene Is Reloaded
     {
-        SceneManager.LoadScene("MainLevel", LoadSceneMode.Single);
-        Time.timeScale = 1;
+        StartCoroutine(LoadYourAsyncScene());
     }
     public void OnExitBtnClick()
     {
@@ -65,5 +65,15 @@ public class UIManagerScript : MonoBehaviour
     public void onHighGravitySelected()
     {
         Physics2D.gravity = new Vector2(0, -13f);
+    }
+    IEnumerator LoadYourAsyncScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        Time.timeScale = 1;
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }
