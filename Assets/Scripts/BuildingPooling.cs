@@ -49,8 +49,28 @@ public class BuildingPooling : MonoBehaviour
             Building.SetActive(true);
             if (Random.Range(0, 2) == 1)
             {
-                SpawnCoin(Building.transform.position);
+                SpawnCoin(Building.transform);
             }
+        }
+    }
+    public void SpawnCoin(Transform buildingTransform) // Spawn Coin On Top Of Building
+    {
+        GameObject Coin = ObjectPooling.Instance.CoinsObjectToPool();
+
+        if (Coin != null)
+        {
+            Coin.transform.position = new Vector3(buildingTransform.position.x, buildingTransform.localScale.y / 2 + buildingTransform.position.y + 0.5f, buildingTransform.position.z);
+            Coin.SetActive(true);
+        }
+    }
+    public void SpawnGrapplePlatform(float position)
+    {
+        GameObject GrapplingPlatform = ObjectPooling.Instance.GrappleObjectToPool();
+
+        if (GrapplingPlatform != null)
+        {
+            GrapplingPlatform.transform.position = new Vector3(position, GrapplingPlatform.transform.position.y, GrapplingPlatform.transform.position.z);
+            GrapplingPlatform.SetActive(true);
         }
     }
     public float FindNextPosition(string positionForObject) // Finds Position To Spawn Next Building At , After The Rightmost Building
@@ -68,25 +88,5 @@ public class BuildingPooling : MonoBehaviour
             return currGrapplePlatformPosition;
         }
         else return 0f;
-    }
-    public void SpawnCoin(Vector3 position) // Spawn Coin On Top Of Building
-    {
-        GameObject Coin = ObjectPooling.Instance.CoinsObjectToPool();
-
-        if (Coin != null)
-        {
-            Coin.transform.position = new Vector3(position.x, position.y + 3f, position.z);
-            Coin.SetActive(true);
-        }
-    }
-    public void SpawnGrapplePlatform(float position)
-    {
-        GameObject GrapplingPlatform = ObjectPooling.Instance.GrappleObjectToPool();
-
-        if (GrapplingPlatform != null)
-        {
-            GrapplingPlatform.transform.position = new Vector3(position, GrapplingPlatform.transform.position.y, GrapplingPlatform.transform.position.z);
-            GrapplingPlatform.SetActive(true);
-        }
     }
 }
