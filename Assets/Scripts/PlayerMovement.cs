@@ -72,6 +72,11 @@ public class PlayerMovement : MonoBehaviour
     {
         collision.gameObject.SetActive(false);
         coinsCounter += 10;
+        if (coinsCounter == 50)
+        {
+            soundManagerScript.onPowerUp();
+            coinsCounter -= 50;
+        }
         tmproGameObject.text = coinsCounter.ToString();
         soundManagerScript.onCoinsCollect();
     }

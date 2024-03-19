@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip gameOver;
     [SerializeField] private AudioClip webShoot;
     [SerializeField] private AudioClip spidermanTheme;
+    [SerializeField] private AudioClip spidermanMeme;
     [SerializeField] private AudioSource bgAudioSource;
     private AudioSource eventAudioSource;
 
@@ -21,6 +22,11 @@ public class SoundManager : MonoBehaviour
     public void onWebShoot()
     {
         eventAudioSource.PlayOneShot(webShoot);
+    }
+    public void onPowerUp()
+    {
+        bgAudioSource.Pause();
+        eventAudioSource.PlayOneShot(spidermanMeme);
     }
     public void onGameOver()
     {

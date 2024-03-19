@@ -1351,6 +1351,7 @@ MonoBehaviour:
   gameOver: {fileID: 8300000, guid: a411e2cfa95b741dca47e3ff3ab45d3c, type: 3}
   webShoot: {fileID: 8300000, guid: b7a962edb08a949c4aa3dd189b9bf4c0, type: 3}
   spidermanTheme: {fileID: 8300000, guid: 83b2293732c364a0a909ef6684cfb15f, type: 3}
+  spidermanMeme: {fileID: 8300000, guid: 0d7df7e2b21c6479a8a3d923958db843, type: 3}
   bgAudioSource: {fileID: 519420035}
 --- !u!1 &519420028
 GameObject:
