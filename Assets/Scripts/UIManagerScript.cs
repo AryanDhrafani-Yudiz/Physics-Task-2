@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +8,10 @@ public class UIManagerScript : MonoBehaviour
     [SerializeField] private Canvas GamePlayCanvas;
     [SerializeField] private Canvas SettingsCanvas;
     [SerializeField] private Canvas GameOverCanvas;
+    [SerializeField] private SoundManager soundManagerScript;
     public bool gamePlayScreen = false;
 
-    void Start()
+    void Awake()
     {
         StartingScreenCanvas.enabled = true;
         GamePlayCanvas.enabled = false;
@@ -43,11 +45,11 @@ public class UIManagerScript : MonoBehaviour
         GamePlayCanvas.enabled = false;
         SettingsCanvas.enabled = false;
         GameOverCanvas.enabled = true;
+        Time.timeScale = 0;
     }
     public void OnRestartBtnClick() // When Restart Button Is Clicked , Scene Is Reloaded
     {
-        SceneManager.LoadScene("MainLevel", LoadSceneMode.Single);
-        Time.timeScale = 1;
+        StartCoroutine(LoadYourAsyncScene());
     }
     public void OnExitBtnClick()
     {
@@ -64,5 +66,15 @@ public class UIManagerScript : MonoBehaviour
     public void onHighGravitySelected()
     {
         Physics2D.gravity = new Vector2(0, -13f);
+    }
+    IEnumerator LoadYourAsyncScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        Time.timeScale = 1;
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }
