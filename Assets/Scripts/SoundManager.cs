@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class SoundManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class SoundManager : MonoBehaviour
     {
         eventAudioSource = Camera.main.GetComponent<AudioSource>();
         bgAudioSource.enabled = true;
+        eventAudioSource.enabled = true;
         audioLength = spidermanMeme.length;
     }
     public void onCoinsCollect()
@@ -41,6 +43,7 @@ public class SoundManager : MonoBehaviour
     {
         eventAudioSource.PlayOneShot(gameOver);
         bgAudioSource.enabled = false;
+        StartCoroutine(Timer(2));
     }
     private void Update()
     {
@@ -56,5 +59,10 @@ public class SoundManager : MonoBehaviour
                 audioLength = spidermanMeme.length;
             }
         }
+    }
+    private IEnumerator Timer(int seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        eventAudioSource.enabled = false;
     }
 }
