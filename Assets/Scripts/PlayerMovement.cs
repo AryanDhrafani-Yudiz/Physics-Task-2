@@ -94,6 +94,10 @@ public class PlayerMovement : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
+                if (playerRigidBody.IsSleeping())
+                {
+                    playerRigidBody.WakeUp();
+                }
                 if (playerSpringJoint2D.distance > 1.5f)
                 {
                     playerSpringJoint2D.distance -= distanceChange;
@@ -117,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 findNextGrapple();
-                //joinNextGrapple(grappleObjectToAttachTo);
                 soundManagerScript.onWebShoot();
             }
         }
@@ -136,14 +139,14 @@ public class PlayerMovement : MonoBehaviour
         {
             if (child.gameObject.activeInHierarchy)
             {
-                if (xDistanceOfGrapple == 0f && child.gameObject.transform.position.x - transform.position.x > 0f)
+                if (xDistanceOfGrapple == 0f && child.position.x - transform.position.x > 0f)
                 {
-                    xDistanceOfGrapple = child.gameObject.transform.position.x - transform.position.x;
+                    xDistanceOfGrapple = child.position.x - transform.position.x;
                     grappleObjectToAttachTo = child.gameObject;
                 }
-                else if (child.gameObject.transform.position.x - transform.position.x > 0f && child.gameObject.transform.position.x - transform.position.x < xDistanceOfGrapple)
+                else if (child.position.x - transform.position.x > 0f && child.position.x - transform.position.x < xDistanceOfGrapple)
                 {
-                    xDistanceOfGrapple = child.gameObject.transform.position.x - transform.position.x;
+                    xDistanceOfGrapple = child.position.x - transform.position.x;
                     grappleObjectToAttachTo = child.gameObject;
                 }
             }

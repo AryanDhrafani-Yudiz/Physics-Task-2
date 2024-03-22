@@ -8,15 +8,15 @@ public class ObjectPooling : MonoBehaviour
     // Buildings
     [SerializeField] private int numberOfBuildingObject;
     [SerializeField] private List<GameObject> buildingPrefabsList;
-    [SerializeField] private Transform buildingParentObject;
+    [SerializeField] private Transform buildingParentTransform;
     // Coins
     [SerializeField] private int numberOfCoinObject;
     [SerializeField] private List<GameObject> coinPrefabsList;
-    [SerializeField] private Transform coinParentObject;
+    [SerializeField] private Transform coinParentTransform;
     // Grappling Platforms
     [SerializeField] private int numberOfGrappleObject;
     [SerializeField] private List<GameObject> grapplePrefabsList;
-    [SerializeField] private Transform grappleParentObject;
+    [SerializeField] private Transform grappleParentTransform;
 
     private int getRandomItem = 0;
 
@@ -31,53 +31,59 @@ public class ObjectPooling : MonoBehaviour
         CreateCoinObjects();
         CreateGrappleObjects();
     }
-    public void CreateBuildingObjects() // Instantiating And Deactivating Building Objects and Adding Them To Building's List
+    private void CreateObjects(int numberOfObject, List<GameObject> PrefabsList, Transform objectParentTransform, List<GameObject> ListOfAllCurrentObjects)
     {
         GameObject temp;
 
-        for (int count = 0; count < numberOfBuildingObject;)
+        for (int count = 0; count < numberOfObject;)
         {
-            foreach (GameObject prefab in buildingPrefabsList)
+            foreach (GameObject prefab in PrefabsList)
             {
-                temp = Instantiate(prefab, buildingParentObject, true);
+                temp = Instantiate(prefab, objectParentTransform, true);
                 temp.SetActive(false);
-                ListOfAllBuildingObjects.Add(temp);
+                ListOfAllCurrentObjects.Add(temp);
                 count++;
-                if (count == numberOfBuildingObject) break;
+                if (count == numberOfObject) break;
             }
         }
+    }
+    public void CreateBuildingObjects() // Instantiating And Deactivating Building Objects and Adding Them To Building's List
+    {
+        CreateObjects(numberOfBuildingObject, buildingPrefabsList, buildingParentTransform, ListOfAllBuildingObjects);
     }
     public void CreateCoinObjects() // Instantiating And Deactivating Coin Objects and Adding Them To Coin's List
     {
-        GameObject temp;
-
-        for (int count = 0; count < numberOfCoinObject;)
-        {
-            foreach (GameObject prefab in coinPrefabsList)
-            {
-                temp = Instantiate(prefab, coinParentObject, true);
-                temp.SetActive(false);
-                ListOfAllCoinObjects.Add(temp);
-                count++;
-                if (count == numberOfCoinObject) break;
-            }
-        }
+        CreateObjects(numberOfCoinObject, coinPrefabsList, coinParentTransform, ListOfAllCoinObjects);
     }
     public void CreateGrappleObjects() // Instantiating And Deactivating Grapple Platform Objects and Adding Them To Grapple Platform's List
     {
-        GameObject temp;
+        CreateObjects(numberOfGrappleObject, grapplePrefabsList, grappleParentTransform, ListOfAllGrappleObjects);
+    }
+    private GameObject ObjectsToPool(List<GameObject> ListOfAllCurrentObjects)
+    {
+        List<GameObject> inactiveObjectsList = new();
 
-        for (int count = 0; count < numberOfGrappleObject;)
+        for (int i = 0; i < ListOfAllCurrentObjects.Count; i++)
         {
-            foreach (GameObject prefab in grapplePrefabsList)
+            if (!ListOfAllCurrentObjects[i].activeInHierarchy)
             {
-                temp = Instantiate(prefab, grappleParentObject, true);
-                temp.SetActive(false);
-                ListOfAllGrappleObjects.Add(temp);
-                count++;
-                if (count == numberOfGrappleObject) break;
+                inactiveObjectsList.Add(ListOfAllCurrentObjects[i]);
             }
         }
+        getRandomItem = Random.Range(0, inactiveObjectsList.Count);
+        return inactiveObjectsList[getRandomItem];
+    }
+    public GameObject BuildingObjectToPool() // Selects A Random Building Object Which Isnt Active From Heirarchy
+    {
+        return ObjectsToPool(ListOfAllBuildingObjects);
+    }
+    public GameObject CoinsObjectToPool() // Selects Inactive Coin Game Objects To Spawn
+    {
+        return ObjectsToPool(ListOfAllCoinObjects);
+    }
+    public GameObject GrappleObjectToPool() // Selects Inactive Coin Game Objects To Spawn
+    {
+        return ObjectsToPool(ListOfAllGrappleObjects);
     }
     public GameObject BuildingObjectToPoolStarting() // Selects Starting 3 Buildings To Spawn
     {
@@ -89,48 +95,5 @@ public class ObjectPooling : MonoBehaviour
             }
         }
         return null;
-    }
-    public GameObject BuildingObjectToPool() // Selects A Random Building Object Which Isnt Active From Heirarchy
-    {
-        List<GameObject> inactiveBuildingsList = new();
-
-        for (int i = 0; i < ListOfAllBuildingObjects.Count; i++)
-        {
-            if (!ListOfAllBuildingObjects[i].activeInHierarchy)
-            {
-                inactiveBuildingsList.Add(ListOfAllBuildingObjects[i]);
-            }
-        }
-        getRandomItem = Random.Range(0, inactiveBuildingsList.Count);
-        return inactiveBuildingsList[getRandomItem];
-
-    }
-    public GameObject CoinsObjectToPool() // Selects Inactive Coin Game Objects To Spawn
-    {
-        List<GameObject> inactiveCoinsList = new();
-
-        for (int i = 0; i < ListOfAllCoinObjects.Count; i++)
-        {
-            if (!ListOfAllCoinObjects[i].activeInHierarchy)
-            {
-                inactiveCoinsList.Add(ListOfAllCoinObjects[i]);
-            }
-        }
-        getRandomItem = Random.Range(0, inactiveCoinsList.Count);
-        return inactiveCoinsList[getRandomItem];
-    }
-    public GameObject GrappleObjectToPool() // Selects Inactive Coin Game Objects To Spawn
-    {
-        List<GameObject> inactiveGrappleList = new();
-
-        for (int i = 0; i < ListOfAllGrappleObjects.Count; i++)
-        {
-            if (!ListOfAllGrappleObjects[i].activeInHierarchy)
-            {
-                inactiveGrappleList.Add(ListOfAllGrappleObjects[i]);
-            }
-        }
-        getRandomItem = Random.Range(0, inactiveGrappleList.Count);
-        return inactiveGrappleList[getRandomItem];
     }
 }
