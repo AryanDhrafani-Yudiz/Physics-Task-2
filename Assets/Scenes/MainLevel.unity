@@ -1855,7 +1855,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709360270}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -4493,7 +4493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -5334,15 +5334,15 @@ MonoBehaviour:
   - {fileID: 7430509338368399349, guid: a55226e5c47d54f1d85ee6605d0a3d8c, type: 3}
   - {fileID: 4306853617657148302, guid: bedc7a2a088204088a4ea596cb5e2ae2, type: 3}
   - {fileID: 1014535262389942167, guid: 1ecde0fa751a0409f91aa89165a11742, type: 3}
-  buildingParentObject: {fileID: 84044653}
+  buildingParentTransform: {fileID: 84044653}
   numberOfCoinObject: 5
   coinPrefabsList:
   - {fileID: 5578546107071835749, guid: 65d1015e7f2bf4d3fb5de935464399c5, type: 3}
-  coinParentObject: {fileID: 1849358710}
+  coinParentTransform: {fileID: 1849358710}
   numberOfGrappleObject: 10
   grapplePrefabsList:
   - {fileID: 8196472664203702399, guid: f84c06c32378f436cb8400224f6d22f1, type: 3}
-  grappleParentObject: {fileID: 1549453536}
+  grappleParentTransform: {fileID: 1549453536}
   ListOfAllBuildingObjects: []
   ListOfAllCoinObjects: []
   ListOfAllGrappleObjects: []

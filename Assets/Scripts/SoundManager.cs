@@ -43,7 +43,7 @@ public class SoundManager : MonoBehaviour
     {
         eventAudioSource.PlayOneShot(gameOver);
         bgAudioSource.enabled = false;
-        StartCoroutine(Timer(2));
+        StartCoroutine(Timer(Mathf.FloorToInt(gameOver.length)));
     }
     private void Update()
     {

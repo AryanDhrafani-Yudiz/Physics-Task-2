@@ -87,10 +87,18 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
+                if (playerRigidBody.IsSleeping())
+                {
+                    playerRigidBody.WakeUp();
+                }
                 playerSpringJoint2D.distance += distanceChange;
             }
             if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
+                if (playerRigidBody.IsSleeping())
+                {
+                    playerRigidBody.WakeUp();
+                }
                 if (playerSpringJoint2D.distance > 1.5f)
                 {
                     playerSpringJoint2D.distance -= distanceChange;
