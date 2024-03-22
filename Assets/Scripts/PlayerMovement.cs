@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     private LineRenderer lineRenderer;
     private bool singleTime = true;
 
+    [SerializeField] private Transform parentTransform;
+    private float xDistanceOfGrapple = 0f;
+    private GameObject grappleObjectToAttachTo;
+
     private void Awake()
     {
         Application.targetFrameRate = 120;
@@ -76,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
         {
             soundManagerScript.onPowerUp();
             coinsCounter -= 50;
-
         }
         tmproGameObject.text = coinsCounter.ToString();
         soundManagerScript.onCoinsCollect();
@@ -111,9 +114,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else // Not Attached To Any Grappling Platform
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                joinGrapple();
+                findNextGrapple();
+                //joinNextGrapple(grappleObjectToAttachTo);
                 soundManagerScript.onWebShoot();
             }
         }
@@ -125,17 +129,33 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
         lineRenderer.enabled = false;
     }
-    private void joinGrapple()
+    private void findNextGrapple()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, 1 << 3);
-
-        if (hit.collider != null)
+        xDistanceOfGrapple = 0f;
+        foreach (Transform child in parentTransform)
         {
-            playerSpringJoint2D.enabled = true;
-            rbOfGrapplePlatform = hit.collider.gameObject.GetComponent<Rigidbody2D>();
-            playerSpringJoint2D.connectedBody = rbOfGrapplePlatform;
-            canMove = true;
-            lineRenderer.enabled = true;
+            if (child.gameObject.activeInHierarchy)
+            {
+                if (xDistanceOfGrapple == 0f && child.gameObject.transform.position.x - transform.position.x > 0f)
+                {
+                    xDistanceOfGrapple = child.gameObject.transform.position.x - transform.position.x;
+                    grappleObjectToAttachTo = child.gameObject;
+                }
+                else if (child.gameObject.transform.position.x - transform.position.x > 0f && child.gameObject.transform.position.x - transform.position.x < xDistanceOfGrapple)
+                {
+                    xDistanceOfGrapple = child.gameObject.transform.position.x - transform.position.x;
+                    grappleObjectToAttachTo = child.gameObject;
+                }
+            }
         }
+        joinNextGrapple(grappleObjectToAttachTo);
+    }
+    private void joinNextGrapple(GameObject gb)
+    {
+        playerSpringJoint2D.enabled = true;
+        rbOfGrapplePlatform = gb.GetComponent<Rigidbody2D>();
+        playerSpringJoint2D.connectedBody = rbOfGrapplePlatform;
+        canMove = true;
+        lineRenderer.enabled = true;
     }
 }
