@@ -617,7 +617,7 @@ MonoBehaviour:
   screenBoundsOffset: 0.6
   cmScript: {fileID: 519420033}
   UIScript: {fileID: 1092337144}
-  soundManagerScript: {fileID: 475065373}
+  soundManagerScript: {fileID: 8205680171271103209}
   tmproGameObject: {fileID: 1161176708}
   rbOfGrapplePlatform: {fileID: 2048340842977073983}
   distanceChange: 0.05
@@ -1304,56 +1304,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &475065371
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 475065372}
-  - component: {fileID: 475065373}
-  m_Layer: 0
-  m_Name: SoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &475065372
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475065371}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &475065373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475065371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94edac78218be4dddb66c711d392d633, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinCollect: {fileID: 8300000, guid: fabb8669a5f784bdfa955d26c89b75e3, type: 3}
-  gameOver: {fileID: 8300000, guid: a411e2cfa95b741dca47e3ff3ab45d3c, type: 3}
-  webShoot: {fileID: 8300000, guid: b7a962edb08a949c4aa3dd189b9bf4c0, type: 3}
-  spidermanTheme: {fileID: 8300000, guid: 83b2293732c364a0a909ef6684cfb15f, type: 3}
-  spidermanMeme: {fileID: 8300000, guid: 0d7df7e2b21c6479a8a3d923958db843, type: 3}
-  bgAudioSource: {fileID: 519420035}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,7 +2644,7 @@ MonoBehaviour:
   GamePlayCanvas: {fileID: 1827875675}
   SettingsCanvas: {fileID: 48627007}
   GameOverCanvas: {fileID: 1705707238}
-  soundManagerScript: {fileID: 475065373}
+  soundManagerScript: {fileID: 8205680171271103209}
   gamePlayScreen: 0
 --- !u!1 &1156414472
 GameObject:
@@ -5268,6 +5218,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!4 &2753010505328114990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837654005822130345}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4134352645593951317
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,6 +5249,23 @@ GameObject:
   m_Layer: 3
   m_Name: InitialGrapplePlatform
   m_TagString: GrapplePlatform
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &4837654005822130345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2753010505328114990}
+  - component: {fileID: 8205680171271103209}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5364,6 +5346,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8205680171271103209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837654005822130345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94edac78218be4dddb66c711d392d633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinCollect: {fileID: 8300000, guid: fabb8669a5f784bdfa955d26c89b75e3, type: 3}
+  gameOver: {fileID: 8300000, guid: a411e2cfa95b741dca47e3ff3ab45d3c, type: 3}
+  webShoot: {fileID: 8300000, guid: b7a962edb08a949c4aa3dd189b9bf4c0, type: 3}
+  spidermanTheme: {fileID: 8300000, guid: 83b2293732c364a0a909ef6684cfb15f, type: 3}
+  spidermanMeme: {fileID: 8300000, guid: 0d7df7e2b21c6479a8a3d923958db843, type: 3}
+  bgAudioSource: {fileID: 519420035}
 --- !u!1 &8752558327636648980
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,14 +5415,14 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 412744632}
+  - {fileID: 519420032}
   - {fileID: 1092337143}
-  - {fileID: 475065372}
+  - {fileID: 2753010505328114990}
   - {fileID: 784261411}
   - {fileID: 709360274}
   - {fileID: 1827875676}
   - {fileID: 48627008}
   - {fileID: 1705707239}
-  - {fileID: 519420032}
   - {fileID: 5450826130193974977}
   - {fileID: 8762307501906384546}
   - {fileID: 84044653}
