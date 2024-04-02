@@ -49,6 +49,7 @@ public class UIManagerScript : MonoBehaviour
     }
     public void OnRestartBtnClick() // When Restart Button Is Clicked , Scene Is Reloaded
     {
+        ObjectPooling.Instance.ClearListData();
         StartCoroutine(LoadYourAsyncScene());
     }
     public void OnExitBtnClick()

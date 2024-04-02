@@ -38,7 +38,6 @@ public class BuildingPooling : MonoBehaviour
         SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
         SpawnGrapplePlatform(FindNextPosition("GrapplingPlatform"));
     }
-
     public void SpawnBuilding(float position) // Spawn Building At Relative Position To RightMost Building Present
     {
         GameObject Building = ObjectPooling.Instance.BuildingObjectToPool();

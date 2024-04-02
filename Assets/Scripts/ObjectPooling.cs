@@ -62,6 +62,7 @@ public class ObjectPooling : MonoBehaviour
     private GameObject ObjectsToPool(List<GameObject> ListOfAllCurrentObjects)
     {
         List<GameObject> inactiveObjectsList = new();
+        if (ListOfAllCurrentObjects.Count == 0) { return null; }
 
         for (int i = 0; i < ListOfAllCurrentObjects.Count; i++)
         {
@@ -95,5 +96,11 @@ public class ObjectPooling : MonoBehaviour
             }
         }
         return null;
+    }
+    public void ClearListData()
+    {
+        ListOfAllBuildingObjects.Clear();
+        ListOfAllCoinObjects.Clear();
+        ListOfAllGrappleObjects.Clear();
     }
 }
