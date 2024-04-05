@@ -4,7 +4,6 @@ public class ObjectActivatorDeactivator : MonoBehaviour
 {
     void OnBecameInvisible() // When GameObject Or Camera Gets Out Of Camera's ViewPort , Doesnt Work If Scene View Is On or Shadows Are Being Casted
     {
-        Debug.Log("Inside-OnBecameInvisible");
         if (gameObject.CompareTag("Building"))
         {
             gameObject.SetActive(false);
